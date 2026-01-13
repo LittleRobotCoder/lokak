@@ -5,25 +5,33 @@
 
 /* Font & base */
 :root {
-  --bg: #0a0b12;
-  --ink: #0b0f13;
-  --accent: #8b5cf6; /* violet-500 baseline; we'll theme further */
+  /* Brand palette (Lokaksema 2026) */
+  --bg: #0E0E10;        /* Background */
+  --ink: #0B0F13;       /* Deep ink */
+  --primary: #402A95;   /* Deep Purple */
+  --accent: #6C63FF;    /* Electric Purple */
+  --cyan: #00D8FF;      /* Cyan */
+  --text: #F2F2F2;      /* Off-white text */
+
+  /* RGB values for border colors (used with rgb(var(--border))) */
+  --border: 255, 255, 255;
+
   /* Fonts (set by app/layout via Google Fonts) */
-  --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  --font-heading: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  --font-quote: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-sans: var(--font-roboto), 'Roboto', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial;
+  --font-heading: var(--font-poppins), 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial;
+  --font-quote: var(--font-roboto), 'Roboto', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   background: var(--bg);
-  color: white;
-  /* default site font: Inter (suitable for UI / navbar) */
+  color: var(--text);
   font-family: var(--font-sans);
 }
 
 ::selection {
-  background: rgba(139, 92, 246, 0.35);
+  background: rgba(108, 99, 255, 0.35);
 }
 
 /* Helpers */
@@ -39,23 +47,44 @@ html, body {
   background-attachment: fixed; /* key for parallax-like effect */
 }
 
-/* Headings use Cormorant Garamond */
-h1, h2, h3, h4, .heading {
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+.heading {
   font-family: var(--font-heading);
 }
 
 /* Quotes / sentences / kickers */
-blockquote, .quote, .kicker, .sentence {
+blockquote,
+.quote,
+.kicker,
+.sentence {
   font-family: var(--font-quote);
 }
 
 /* Soft gradient overlays */
 .overlay-top {
-  background: radial-gradient(1200px 600px at 50% -10%, rgba(139,92,246,.35), transparent 60%),
-              radial-gradient(800px 400px at 80% 10%, rgba(56,189,248,.25), transparent 60%);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(108, 99, 255, 0.30), transparent 60%),
+    radial-gradient(900px 500px at 80% 10%, rgba(0, 216, 255, 0.18), transparent 62%),
+    radial-gradient(1000px 520px at 10% 30%, rgba(64, 42, 149, 0.22), transparent 60%);
 }
 .overlay-bottom {
-  background: linear-gradient(to bottom, rgba(10,11,18,0) 0%, rgba(10,11,18,1) 70%);
+  background: linear-gradient(
+    to bottom,
+    rgba(14, 14, 16, 0) 0%,
+    rgba(14, 14, 16, 1) 70%
+  );
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(14, 14, 16, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 /* Typographic rhythm for sections */
@@ -66,15 +95,12 @@ blockquote, .quote, .kicker, .sentence {
   @apply text-3xl md:text-4xl font-semibold tracking-tight;
 }
 .section p {
-  @apply text-base md:text-lg leading-relaxed text-neutral-200;
+  @apply text-base md:text-lg leading-relaxed;
+  color: rgb(var(--foreground) / 0.8);
 }
 .section .kicker {
-  @apply uppercase tracking-widest text-xs md:text-sm text-neutral-400;
-}
-
-/* Clean text without borders */
-:where(body, h1, h2, h3, h4, h5, h6, p, a, li, span, button, input, textarea, label, blockquote, .kicker, .quote, .sentence) {
-  /* No text stroke or borders */
+  @apply uppercase tracking-widest text-xs md:text-sm;
+  color: rgb(var(--muted-foreground));
 }
 
 /* Enhanced animations */
@@ -110,11 +136,12 @@ blockquote, .quote, .kicker, .sentence {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(108, 99, 255, 0.40), 0 0 40px rgba(0, 216, 255, 0.18);
   }
   50% {
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.8);
+    box-shadow: 0 0 28px rgba(108, 99, 255, 0.65), 0 0 70px rgba(0, 216, 255, 0.28);
   }
 }
 
@@ -136,13 +163,18 @@ blockquote, .quote, .kicker, .sentence {
 }
 
 /* Smooth transitions for interactive elements */
-button, a, input, textarea, select {
+button,
+a,
+input,
+textarea,
+select {
   @apply transition-all duration-200;
 }
 
 /* Advanced Animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -151,11 +183,18 @@ button, a, input, textarea, select {
 }
 
 @keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  0%,
+  100% {
+    box-shadow:
+      0 0 18px rgba(108, 99, 255, 0.40),
+      0 0 42px rgba(64, 42, 149, 0.22),
+      0 0 60px rgba(0, 216, 255, 0.16);
   }
   50% {
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.5);
+    box-shadow:
+      0 0 26px rgba(108, 99, 255, 0.65),
+      0 0 60px rgba(64, 42, 149, 0.32),
+      0 0 86px rgba(0, 216, 255, 0.26);
   }
 }
 
@@ -178,7 +217,8 @@ button, a, input, textarea, select {
 }
 
 @keyframes bounce-slow {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -252,7 +292,7 @@ button, a, input, textarea, select {
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, #8b5cf6, #56189248, #8b5cf6);
+  background: linear-gradient(90deg, #6C63FF, rgba(64, 42, 149, 0.28), #00D8FF, #6C63FF);
   background-size: 1000px 100%;
   animation: shimmer 3s infinite;
 }
@@ -286,49 +326,37 @@ button, a, input, textarea, select {
   animation: blur-in 0.8s ease-out;
 }
 
-/* Rainbow glow animation for navbar */
+/* Theme glow animation for navbar (kept class name) */
 @keyframes rainbow-glow {
   0% {
-    box-shadow: 
-      0 0 20px rgba(255, 0, 0, 0.5),
-      0 0 40px rgba(255, 127, 0, 0.3),
-      inset 0 0 20px rgba(255, 0, 0, 0.1);
-  }
-  25% {
-    box-shadow: 
-      0 0 20px rgba(255, 127, 0, 0.5),
-      0 0 40px rgba(255, 255, 0, 0.3),
-      inset 0 0 20px rgba(255, 127, 0, 0.1);
+    box-shadow:
+      0 0 18px rgba(108, 99, 255, 0.40),
+      0 0 42px rgba(64, 42, 149, 0.24),
+      inset 0 0 18px rgba(0, 216, 255, 0.08);
   }
   50% {
-    box-shadow: 
-      0 0 20px rgba(0, 255, 0, 0.5),
-      0 0 40px rgba(0, 0, 255, 0.3),
-      inset 0 0 20px rgba(0, 255, 0, 0.1);
-  }
-  75% {
-    box-shadow: 
-      0 0 20px rgba(75, 0, 130, 0.5),
-      0 0 40px rgba(148, 0, 211, 0.3),
-      inset 0 0 20px rgba(75, 0, 130, 0.1);
+    box-shadow:
+      0 0 26px rgba(0, 216, 255, 0.38),
+      0 0 64px rgba(108, 99, 255, 0.30),
+      inset 0 0 22px rgba(108, 99, 255, 0.12);
   }
   100% {
-    box-shadow: 
-      0 0 20px rgba(255, 0, 0, 0.5),
-      0 0 40px rgba(255, 127, 0, 0.3),
-      inset 0 0 20px rgba(255, 0, 0, 0.1);
+    box-shadow:
+      0 0 18px rgba(108, 99, 255, 0.40),
+      0 0 42px rgba(64, 42, 149, 0.24),
+      inset 0 0 18px rgba(0, 216, 255, 0.08);
   }
 }
 
-/* Rainbow border animation */
+/* Theme border animation (kept keyframe name) */
 @keyframes rainbow-border-rotate {
   0% {
-    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+    background: linear-gradient(90deg, #402A95, #6C63FF, #00D8FF, #6C63FF, #402A95);
     background-size: 200% 100%;
     background-position: 0%;
   }
   100% {
-    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+    background: linear-gradient(90deg, #402A95, #6C63FF, #00D8FF, #6C63FF, #402A95);
     background-size: 200% 100%;
     background-position: 100%;
   }
@@ -337,7 +365,9 @@ button, a, input, textarea, select {
 .rainbow-border {
   position: relative;
   border: 2px solid transparent;
-  background-image: linear-gradient(white, white), linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+  background-image:
+    linear-gradient(rgba(14, 14, 16, 0.92), rgba(14, 14, 16, 0.92)),
+    linear-gradient(90deg, #402A95, #6C63FF, #00D8FF, #6C63FF, #402A95);
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
@@ -362,17 +392,19 @@ button, a, input, textarea, select {
 }
 
 .group:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  background-color: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+  border-color: rgba(255, 255, 255, 0.22);
+  background-color: rgba(0, 0, 0, 0.55);
+  box-shadow:
+    0 18px 44px rgba(108, 99, 255, 0.22),
+    0 10px 34px rgba(0, 216, 255, 0.10);
   transform: translateY(-4px);
 }
 
 .group-hover\:text-purple-400:hover {
-  color: #a78bfa;
+  color: #6C63FF;
 }
 
-/* Rainbow card border with moving gradient */
+/* Card border with moving theme gradient (kept keyframe name) */
 @keyframes card-rainbow-gradient {
   0% {
     background-position: 0% 50%;
@@ -390,22 +422,26 @@ button, a, input, textarea, select {
 }
 
 .card-rainbow:hover {
-  background: linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(255, 127, 0, 0.05), rgba(255, 255, 0, 0.05), rgba(0, 255, 0, 0.05), rgba(0, 0, 255, 0.05), rgba(75, 0, 130, 0.05), rgba(148, 0, 211, 0.05), rgba(255, 0, 0, 0.05));
+  background: linear-gradient(
+    90deg,
+    rgba(64, 42, 149, 0.06),
+    rgba(108, 99, 255, 0.07),
+    rgba(0, 216, 255, 0.06),
+    rgba(108, 99, 255, 0.07),
+    rgba(64, 42, 149, 0.06)
+  );
   background-size: 200% 100%;
   animation: card-rainbow-gradient 3s ease infinite;
-  box-shadow: 
-    0 0 2px #ff0000,
-    0 0 4px #ff7f00,
-    0 0 6px #00ff00,
-    0 0 8px #0000ff,
-    0 0 10px #9400d3,
-    inset 0 0 20px rgba(139, 92, 246, 0.1);
+  box-shadow:
+    0 0 10px rgba(108, 99, 255, 0.18),
+    0 0 18px rgba(0, 216, 255, 0.14),
+    inset 0 0 24px rgba(108, 99, 255, 0.08);
 }
 
 /* Opt-out modifier for elements that should keep their solid background */
 .card-rainbow.no-rainbow,
 .card-rainbow.no-rainbow:hover {
-  background: rgba(0,0,0,0.9) !important;
+  background: rgba(0, 0, 0, 0.9) !important;
   animation: none !important;
   box-shadow: none !important;
 }
@@ -425,7 +461,12 @@ button, a, input, textarea, select {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(139,92,246,0.28) 0%, rgba(139,92,246,0.14) 12%, transparent 40%);
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(0, 216, 255, 0.20) 0%,
+    rgba(108, 99, 255, 0.14) 14%,
+    transparent 42%
+  );
   opacity: 0;
   transition: opacity 180ms ease;
   mix-blend-mode: screen;
@@ -440,6 +481,29 @@ button, a, input, textarea, select {
   z-index: 1;
 }
 
+/* Hide Spline watermark */
+.spline-wrapper [class*="watermark"],
+.spline-wrapper [class*="Watermark"],
+.spline-wrapper [class*="spline-watermark"],
+.spline-wrapper a[title*="Spline"],
+.spline-wrapper a[title*="spline"],
+.spline-wrapper a[href*="spline"],
+.spline-wrapper a[href*="Spline"],
+.spline-wrapper [class*="SplineWatermark"],
+.spline-wrapper [id*="watermark"],
+.spline-wrapper [id*="Watermark"],
+.spline-wrapper iframe[title*="Spline"],
+.spline-wrapper > div > div > a,
+.spline-wrapper canvas + a,
+.spline-wrapper div[style*="position: absolute"][style*="bottom"] a {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
 /* Animated underline for desktop nav links */
 .underline-anim {
   position: relative;
@@ -452,7 +516,7 @@ button, a, input, textarea, select {
   bottom: -4px;
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, #a78bfa, #7c3aed);
+  background: linear-gradient(90deg, #6C63FF, #00D8FF);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1);
@@ -464,9 +528,91 @@ button, a, input, textarea, select {
 }
 
 @media (min-width: 1024px) {
-  /* Slight lift + color shift for register button on large screens */
+  /* Slight lift + theme glow for register button on large screens */
   .lg\:register-hover:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(124,58,237,0.12);
+    box-shadow:
+      0 10px 26px rgba(108, 99, 255, 0.18),
+      0 8px 22px rgba(0, 216, 255, 0.10);
+  }
+}
+
+/* ---------------------------------------------------------
+   Shadcn / Tailwind tokens (RGB triplets, dark by default)
+   --------------------------------------------------------- */
+@layer base {
+  :root {
+    --background: 14, 14, 16;       /* #0E0E10 */
+    --foreground: 242, 242, 242;    /* #F2F2F2 */
+
+    --card: 16, 16, 22;
+    --card-foreground: 242, 242, 242;
+
+    --popover: 16, 16, 22;
+    --popover-foreground: 242, 242, 242;
+
+    --primary: 108, 99, 255;        /* #6C63FF */
+    --primary-foreground: 255, 255, 255;
+
+    --secondary: 64, 42, 149;       /* #402A95 */
+    --secondary-foreground: 255, 255, 255;
+
+    --muted: 26, 26, 34;
+    --muted-foreground: 170, 170, 180;
+
+    --accent: 0, 216, 255;          /* #00D8FF */
+    --accent-foreground: 14, 14, 16;
+
+    --destructive: 239, 68, 68;
+    --destructive-foreground: 255, 255, 255;
+
+    --border: 255, 255, 255;        /* used with opacity in borders */
+    --input: 255, 255, 255;
+    --ring: 0, 216, 255;
+
+    --chart-1: 108, 99, 255;
+    --chart-2: 0, 216, 255;
+    --chart-3: 64, 42, 149;
+    --chart-4: 140, 120, 255;
+    --chart-5: 0, 180, 220;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Keep identical (site is dark by default) */
+    --background: 14, 14, 16;
+    --foreground: 242, 242, 242;
+    --card: 16, 16, 22;
+    --card-foreground: 242, 242, 242;
+    --popover: 16, 16, 22;
+    --popover-foreground: 242, 242, 242;
+    --primary: 108, 99, 255;
+    --primary-foreground: 255, 255, 255;
+    --secondary: 64, 42, 149;
+    --secondary-foreground: 255, 255, 255;
+    --muted: 26, 26, 34;
+    --muted-foreground: 170, 170, 180;
+    --accent: 0, 216, 255;
+    --accent-foreground: 14, 14, 16;
+    --destructive: 239, 68, 68;
+    --destructive-foreground: 255, 255, 255;
+    --border: 255, 255, 255;
+    --input: 255, 255, 255;
+    --ring: 0, 216, 255;
+    --chart-1: 108, 99, 255;
+    --chart-2: 0, 216, 255;
+    --chart-3: 64, 42, 149;
+    --chart-4: 140, 120, 255;
+    --chart-5: 0, 180, 220;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
