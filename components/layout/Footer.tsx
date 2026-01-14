@@ -20,6 +20,16 @@ const LEGAL = [
   { name: "Terms", href: "/terms" },
 ];
 
+const QUICK_LINKS = [
+  { name: "Overview", href: "/#overview" },
+  { name: "Mission", href: "/#mission-vision" },
+  { name: "Tracks", href: "/#tracks" },
+  { name: "Stats", href: "/#stats" },
+  { name: "Partners", href: "/#partners" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "Register", href: "/#register" },
+];
+
 export default function Footer() {
   return (
     <footer className="relative z-30 mt-24 border-t border-white/10 bg-[#07080f]">
@@ -36,6 +46,27 @@ export default function Footer() {
             <p className="text-xs text-neutral-400">
               Organized by SHV Groups - In partnership with Utopian Space (SHV Creative Labs)
             </p>
+            <div className="mt-4 text-xs text-neutral-400 space-y-2">
+              <div>
+                <span className="text-neutral-300">Contact:</span>{" "}
+                <span>hello@lokaksema.org</span>
+              </div>
+              <div>
+                <span className="text-neutral-300">Location:</span>{" "}
+                <span>New Delhi, Bharat Mandapam</span>
+              </div>
+              <div className="flex gap-4">
+                <Link className="hover:opacity-80" href="#">
+                  X
+                </Link>
+                <Link className="hover:opacity-80" href="#">
+                  LinkedIn
+                </Link>
+                <Link className="hover:opacity-80" href="#">
+                  YouTube
+                </Link>
+              </div>
+            </div>
           </div>
 
           <div>
@@ -62,6 +93,18 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="mt-6">
+              <h4 className="text-sm font-semibold mb-3 text-neutral-200">Quick Links</h4>
+              <ul className="grid grid-cols-2 gap-2 text-sm">
+                {QUICK_LINKS.map((i) => (
+                  <li key={i.name}>
+                    <Link className="hover:opacity-80" href={i.href}>
+                      {i.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div>

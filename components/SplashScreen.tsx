@@ -6,7 +6,11 @@ const MotionImage = motion(Image);
 import SplashLogo from "./SplashLogo.png";
 const text = "lokaksema 2026";
 
-export default function SplashScreen({ onComplete }: { onComplete?: () => void }) {
+export default function SplashScreen({
+  onComplete,
+}: {
+  onComplete?: () => void;
+}) {
   const [textVisible, setTextVisible] = useState(false);
   const [showLogo, setShowLogo] = useState(false);
   const [logoZoomOut, setLogoZoomOut] = useState(false);
@@ -65,9 +69,9 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
             <motion.span
               key={i}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ 
+              animate={{
                 opacity: textVisible ? 1 : 0,
-                y: textVisible ? 0 : -20 
+                y: textVisible ? 0 : -20,
               }}
               transition={{
                 delay: textVisible ? i * 0.02 : 0,
@@ -90,13 +94,13 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
           height={80}
           priority
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ 
+          animate={{
             opacity: logoZoomOut ? 0 : 1,
             scale: logoZoomOut ? 2.4 : 1.05,
           }}
-          transition={{ 
+          transition={{
             duration: logoZoomOut ? 0.8 : 1.5,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
       )}

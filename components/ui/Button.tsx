@@ -28,18 +28,16 @@ export default function Button(props: Props) {
   const base =
     "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D8FF] focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-  // Primary/filled: Purple gradient with glow
+  // Primary/filled: Violet gradient with glow (Violet Nebula)
   const filled =
     "text-white font-medium relative overflow-hidden " +
-    "bg-gradient-to-br from-[#6C63FF] to-[#402A95] " +
     "hover:opacity-90 hover:shadow-[0_8px_24px_rgba(108,99,255,0.4),0_4px_12px_rgba(0,216,255,0.2)] " +
     "active:opacity-95";
 
-  // Secondary/outline: Glass style with purple/cyan border on hover
+  // Secondary/outline: Glass style with border (Violet Nebula)
   const outline =
-    "glass text-foreground border-white/10 " +
-    "hover:border-[#6C63FF]/50 hover:bg-white/[0.06] hover:shadow-[0_4px_16px_rgba(108,99,255,0.15),0_2px_8px_rgba(0,216,255,0.1)] " +
-    "hover:bg-gradient-to-br hover:from-white/[0.03] hover:to-white/[0.06]";
+    "bg-white/[0.03] backdrop-blur-xl text-foreground border border-white/[0.08] " +
+    "hover:border-white/[0.15] hover:bg-white/[0.05] hover:shadow-[0_4px_16px_rgba(108,99,255,0.15),0_2px_8px_rgba(0,216,255,0.1)]";
 
   const chosenVariant: Variant = (("variant" in props && props.variant) ||
     (props as any)["data-variant"] ||
@@ -51,6 +49,13 @@ export default function Button(props: Props) {
     " " +
     (chosenVariant === "outline" ? outline : filled);
 
+  const filledStyle =
+    chosenVariant === "filled"
+      ? {
+          background: "linear-gradient(135deg, #6C63FF 0%, #8B83FF 50%, #6C63FF 100%)",
+        }
+      : undefined;
+
   if ("as" in props && props.as === "button") {
     // strip our custom props before spreading
     const {
@@ -60,7 +65,13 @@ export default function Button(props: Props) {
       className: _c,
       ...rest
     } = props as ButtonButtonProps & Record<string, unknown>;
-    return <button {...rest} className={className} />;
+    return (
+      <button
+        {...rest}
+        className={className}
+        style={filledStyle ? { ...filledStyle, ...((rest as any).style || {}) } : (rest as any).style}
+      />
+    );
   }
 
   const {
@@ -70,5 +81,12 @@ export default function Button(props: Props) {
     className: _c2,
     ...rest
   } = props as ButtonLinkProps & Record<string, unknown>;
-  return <Link href={href} {...(rest as any)} className={className} />;
+  return (
+    <Link
+      href={href}
+      {...(rest as any)}
+      className={className}
+      style={filledStyle ? { ...filledStyle, ...((rest as any).style || {}) } : (rest as any).style}
+    />
+  );
 }

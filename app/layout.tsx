@@ -7,7 +7,6 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { defaultMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
-import RightClickMenu from "@/components/ui/RightClickMenu";
 import CardGlow from "@/components/ui/CardGlow";
 import AppShell from "@/components/AppShell"; // new wrapper
 import SplashScreen from "@/components/SplashScreen"; // adjust path if needed
@@ -49,7 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
+    <html lang="en" className={`dark ${poppins.variable} ${roboto.variable}`}>
       <head>
         {/* Favicon / icons (swap with your own if needed) */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -69,7 +68,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body
-        className={`${roboto.className} bg-background text-foreground antialiased`}
+        className={`${poppins.className} bg-background text-foreground antialiased`}
       >
         {/* Skip link for a11y */}
         <a
@@ -102,7 +101,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <main id="main">{children}</main>
             <Footer />
           </SmoothScrollProvider>
-          <RightClickMenu />
         </AppShell>
       </body>
     </html>
