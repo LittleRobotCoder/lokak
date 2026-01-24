@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				</a>
 
 				<AnimatePresence>
-					{showSplash && (
+					{pathname === "/" && showSplash && (
 						<motion.div
 							key="splash"
 							initial={{ opacity: 1 }}
@@ -77,6 +77,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 						</motion.div>
 					)}
 				</AnimatePresence>
+
+				<AnimatePresence>
+                    {pathname !== "/" && showSplash && (
+                        <motion.div
+                            key="splash"
+                            initial={{ opacity: 1 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.1, ease: "easeInOut" }}
+                            className="fixed inset-0 z-[100] bg-[#0a0b12]"
+                        >
+                            <SplashScreen />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
 				<AppShell>
 					<CardGlow />
